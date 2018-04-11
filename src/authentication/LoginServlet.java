@@ -57,22 +57,27 @@ public class LoginServlet extends HttpServlet {
 					
 					Account account = database.getAccountByUsername(username);
 					List<Consultant> consultants = account.getConsultants();
+					List<Client> clients = account.getClients();
 					
 					
 					Role role = new Role();
-					if(!consultants.isEmpty() && consultants.get(0).getIsadmin())
+					if(!clients.isEmpty())
 					{
-						role.setRole("Admin");
+						role.setRole("Client");
 						
 					}
 					else if(!consultants.isEmpty())
 					{
+						if(consultants.get(0).getIsadmin()) {
+							System.out.println(consultants.get(0).getAccount().getUsername());
+							role.setRole("Admin");
+						}
+						else {
 						role.setRole("Consultant");
+						}
+						
 					}
-					else
-					{
-						role.setRole("Client");
-					}
+					
 					
 					//set role
 					session.setAttribute("Role", role);
