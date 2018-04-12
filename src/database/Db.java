@@ -3,14 +3,17 @@ package database;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.*;
 
 import businessObject.Account;
+import businessObject.Answer;
+import businessObject.Category;
 import businessObject.Client;
 import businessObject.Consultant;
 import businessObject.Country;
 import businessObject.Provincestate;
+import businessObject.Question;
+import businessObject.Questionanswer;
 
 public class Db {
 	
@@ -162,9 +165,38 @@ public static final String PERSISTENCE_UNIT_NAME = "SixSSolutions";
 			return tempAccount;	
 			
 		}
+		public Answer getAnswerByText(String text) {
+			List<Answer> tempAnswers = new ArrayList<Answer>();
+			Answer tempAnswer = new Answer();
+			try {
+			
+			String tempJPLSelectQuery = "SELECT a FROM Answer a WHERE a.answertext = :text";
+			System.out.println(text);
+			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("text", text);
+			
+			tempAnswers = tempQuery.getResultList();
+			
+			
+			tempAnswer = tempAnswers.get(0);
+			
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return tempAnswer;	
+			
+		}
 		public void persistClient(Client client) {
 			tempEntityManager.persist(client);
 			tempEntityManager.getTransaction().commit();	
+		}
+		
+		public void persistQuestionAnswers(ArrayList<Questionanswer> qas) {
+			for (Questionanswer qa : qas) {
+				tempEntityManager.persist(qa);
+			}
+			tempEntityManager.getTransaction().commit();
 		}
 		
 		public void persistConsultant(Consultant consultant) {
@@ -178,5 +210,41 @@ public static final String PERSISTENCE_UNIT_NAME = "SixSSolutions";
 		public Country getCountryByID(int id) {
 			Country tempCountry = tempEntityManager.find(Country.class, id);
 			return tempCountry;
+		}
+		
+		public List<Question> getSurveyQuestions() {
+			String tempJPLSelect = "SELECT q FROM Question q";
+			System.out.println("Survey categories retrieved");
+			List<Question> questions = new ArrayList<Question>();
+			try {
+			Query tempQuery = tempEntityManager.createQuery(tempJPLSelect);
+			questions = tempQuery.getResultList();
+			System.out.println("Survey Questions retrieved");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return questions;		
+			
+		}
+		public List<Category> getSurveyCategories() {
+			String tempJPLSelect = "SELECT c FROM Category c";
+			System.out.println("Survey categories retrieved");
+			List<Category> categories = new ArrayList<Category>();
+			try {
+			Query tempQuery = tempEntityManager.createQuery(tempJPLSelect);
+			categories = tempQuery.getResultList();
+			System.out.println("Survey Categories retrieved");
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return categories;		
+			
+		}
+		public void persistAnswer(Answer answer) {
+			tempEntityManager.persist(answer);
+			tempEntityManager.getTransaction().commit();
+			
 		}
 }

@@ -37,22 +37,22 @@
 	<table class="survey">	
 		<c:forEach var="category" items="${requestScope.categoryList}">		
 		
-		<th><c:out value="${category.categoryText}"/></th>
+		<th><c:out value="${category.categorytext}"/></th>
 		<th>Yes</th>
 		<th>Somewhat</th>
 		<th>No</th>
 			
 		<c:forEach items="${questionList}" var="question">
-		<c:if test = "${question.categoryID == category.categoryID}">
+		<c:if test = "${question.category.categoryid == category.categoryid}">
 		
 			<tr>
-			<td><c:out value="${question.questionText}"/></td>
-			<form action="/Capstone/ResultsServlet" method = "post" class = "form">
-			<td><input type="radio" name="${question.questionID}" value="Yes" id="${question.categoryID}${question.questionID}1" class="radioBtn"/></td>
+			<td><c:out value="${question.questiontext}"/></td>
+			<form action="/Capstone/SurveyResultServlet" method = "post" class = "form">
+			<td><input type="radio" name="${question.questionid}" value="Yes" id="${question.category.categoryid}${question.questionid}1" class="radioBtn"/></td>
 
-			<td><input type="radio" name="${question.questionID}" value="No" id="${question.categoryID}${question.questionID}2" class="radioBtn"/></td>
+			<td><input type="radio" name="${question.questionid}" value="No" id="${question.category.categoryid}${question.questionid}2" class="radioBtn"/></td>
 
-			<td><input type="radio" name="${question.questionID}" value="Somewhat" id="${question.categoryID}${question.questionID}3" class="radioBtn"/></td>
+			<td><input type="radio" name="${question.questionid}" value="Somewhat" id="${question.category.categoryid}${question.questionid}3" class="radioBtn"/></td>
 			</tr>
 							
 		</c:if>

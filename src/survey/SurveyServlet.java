@@ -2,6 +2,7 @@ package survey;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,14 +37,11 @@ public class SurveyServlet extends HttpServlet {
     	Db database = new Db();
 		try {
 			database.createConnection();
-			ArrayList<Category> categoryList = DAO.getSurveyCategory(conn);		
+			List<Question> questionList = database.getSurveyQuestions();	
+			List<Category> categoryList = database.getSurveyCategories();
 			
-			ArrayList<Question> questionList = DAO.getSureyQuestions(conn);
-			
-			
-			
-			request.setAttribute("categoryList", categoryList);
-			request.setAttribute("questionList", questionList);		
+			request.setAttribute("questionList", questionList);	
+			request.setAttribute("categoryList", categoryList);	
 			
 			}
 			catch (Exception e) {
