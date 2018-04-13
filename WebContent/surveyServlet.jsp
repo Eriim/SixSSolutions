@@ -22,7 +22,7 @@
 				 <li ><a href="createAccount.jsp">Create</a></li>
 				 </c:when>
 			</c:choose>
-				 <li><a href="login.jsp">Log-Out</a></li>
+				 <li><a href="LogoutServlet">Log-Out</a></li>
 			</li>
 			</ul>
 		</div>

@@ -16,7 +16,7 @@
 		<ul class="menu-bar">
 				 <li ><a href="index.jsp">${username}</a></li>
 				 <li class="active"><a href="createAccount.jsp">Create</a></li>
-				 <li><a href="login.jsp">Log-Out</a></li>
+				
 		</li>
 		</ul>
 	
