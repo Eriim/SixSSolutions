@@ -23,6 +23,8 @@ public class Questionnaire implements Serializable {
 	private Date datecompleted;
 
 	private Boolean iscompleted;
+	
+	private int score;
 
 	//bi-directional many-to-one association to Questionanswer
 	@OneToMany(mappedBy="questionnaire")
@@ -80,6 +82,14 @@ public class Questionnaire implements Serializable {
 		questionanswer.setQuestionnaire(null);
 
 		return questionanswer;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	public Client getClient() {

@@ -14,6 +14,7 @@ import businessObject.Country;
 import businessObject.Provincestate;
 import businessObject.Question;
 import businessObject.Questionanswer;
+import businessObject.Questionnaire;
 
 public class Db {
 	
@@ -165,6 +166,29 @@ public static final String PERSISTENCE_UNIT_NAME = "SixSSolutions";
 			return tempAccount;	
 			
 		}
+		public Client getClientByUsername(String username) {
+			List<Client> tempClients = new ArrayList<Client>();
+			Client tempClient = new Client();
+			try {
+			
+			String tempJPLSelectQuery = "SELECT a FROM Client a WHERE a.account.username = :username";
+			System.out.println(username);
+			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("username", username);
+			
+			tempClients = tempQuery.getResultList();
+			
+			
+			tempClient = tempClients.get(0);
+			
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			return tempClient;	
+			
+		}		
+		
 		public Answer getAnswerByText(String text) {
 			List<Answer> tempAnswers = new ArrayList<Answer>();
 			Answer tempAnswer = new Answer();
@@ -192,9 +216,16 @@ public static final String PERSISTENCE_UNIT_NAME = "SixSSolutions";
 			tempEntityManager.getTransaction().commit();	
 		}
 		
+		public Questionnaire persistQuestionnaire(Questionnaire questionnaire) {
+			
+			tempEntityManager.persist(questionnaire);
+			
+			return questionnaire;
+		}
+		
 		public void persistQuestionAnswers(ArrayList<Questionanswer> qas) {
-			for (Questionanswer qa : qas) {
-				tempEntityManager.persist(qa);
+			for (Questionanswer questionanswer : qas){
+				tempEntityManager.persist(questionanswer);				
 			}
 			tempEntityManager.getTransaction().commit();
 		}
@@ -242,9 +273,29 @@ public static final String PERSISTENCE_UNIT_NAME = "SixSSolutions";
 			return categories;		
 			
 		}
+		public List<Questionnaire> getQuestionnaireByClient(Client client) {
+			
+			String tempJPLSelect = "SELECT q FROM Questionnaire q WHERE clientid = :client";
+			System.out.println("Questionnaires retreived");
+			List<Questionnaire> questionnaires = new ArrayList<Questionnaire>();
+			try {
+				Query tempQuery = tempEntityManager.createQuery(tempJPLSelect)
+						.setParameter("client", client.getClientid());
+				questionnaires = tempQuery.getResultList();				
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			return questionnaires;
+		}
+		
 		public void persistAnswer(Answer answer) {
 			tempEntityManager.persist(answer);
 			tempEntityManager.getTransaction().commit();
 			
+		}
+		public Questionnaire getQuestionnaireById(int id) {
+			Questionnaire questionnaire = tempEntityManager.find(Questionnaire.class, id);
+			return questionnaire;
 		}
 }

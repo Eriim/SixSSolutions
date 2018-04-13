@@ -3,7 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -30,22 +29,30 @@
 	</header>
 	
 	
-
+	<div id="mainBody">
 		
-			<div id="mainBody">
-		<table class="answers">	
-		<th>Questionnaire ID</th>
-		<th>Date Completed</th>
-		<th>Score </th>
-		
-		<c:forEach var="questionnaire" items="${requestScope.questionnaireList}">
-		<tr>
-			<td><c:out value="${questionnaire.questionnaireid}"/></td>
-			<td><c:out value="${questionnaire.datecompleted}"/></td>
-			<td><c:out value="${questionnaire.score}"/></td> <br>
-			<td><a href="ViewSurveyServlet?questionnaireid=<c:out value="${questionnaire.questionnaireid}"/>" >View Survey</a>
-		</tr>	
+	
+		<table class="answer">	
+		<br><br><br>
+		<c:forEach var="category" items="${requestScope.categoryList}">		
+			<th><c:out value="${category.categorytext}"/></th>
+			<th></th>
+					<c:forEach items="${questionList}" var="question">
+						<c:if test = "${question.category.categoryid == category.categoryid}">
+							<tr>	
+								<td><c:out value="${question.questiontext}"/><td>
+									<c:forEach items="${requestScope.questionAnswerList}" var="questionAnswer">
+									<c:if test = "${questionAnswer.question.questionid == question.questionid}">
+										<td><c:out value="${questionAnswer.answer.answertext}"/></td>
+									</c:if>							
+								</c:forEach>
+							</tr>
+							
 					
+							
+							
+						</c:if>
+				</c:forEach>
 		</c:forEach>
 				
 		</table>

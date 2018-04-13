@@ -26,8 +26,6 @@ public class Client implements Serializable {
 
 	private String shippingaddress;
 
-	private String uniquelinkid;
-
 	//bi-directional many-to-one association to Account
 	@ManyToOne
 	@JoinColumn(name="ACCOUNTID")
@@ -93,15 +91,6 @@ public class Client implements Serializable {
 	public void setShippingaddress(String shippingaddress) {
 		this.shippingaddress = shippingaddress;
 	}
-
-	public String getUniquelinkid() {
-		return this.uniquelinkid;
-	}
-
-	public void setUniquelinkid(String uniquelinkid) {
-		this.uniquelinkid = uniquelinkid;
-	}
-
 	public Account getAccount() {
 		return this.account;
 	}
@@ -178,7 +167,7 @@ public class Client implements Serializable {
 		this.companyname = companyname;
 		this.postalzipcode = postalzipcode;
 		this.shippingaddress = shippingaddress;
-		this.uniquelinkid = uniquelinkid;
+		
 		this.account = account;
 		this.country = country;
 		this.provincestate = provincestate;

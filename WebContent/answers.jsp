@@ -33,28 +33,21 @@
 	<div id="mainBody">
 		<h2 class="title">Confirm your answers: </h2>
 	
-		<table class="answers">	
+		<table class="answer">	
 		<br><br><br>
 		<c:forEach var="category" items="${requestScope.categoryList}">		
-			<th><c:out value="${category.categoryText}"/></th>
+			<th><c:out value="${category.categorytext}"/></th>
 			<th></th>
 					<c:forEach items="${questionList}" var="question">
-						<c:if test = "${question.categoryID == category.categoryID}">
-							
-							
-									<tr>	
-										<td><c:out value="${question.questionText}"/><td>
-								<c:forEach items="${requestScope.questionAnswerList}" var="questionAnswer">
-							
-									<c:if test = "${questionAnswer.question.questionID == question.questionID}">
-									
-										<td><c:out value="${questionAnswer.answer.answerText}"/></td>
-										</tr>
-										
-									</c:if>
-											
-							
+						<c:if test = "${question.category.categoryid == category.categoryid}">
+							<tr>	
+								<td><c:out value="${question.questiontext}"/><td>
+									<c:forEach items="${sessionScope.questionAnswerList}" var="questionAnswer">
+									<c:if test = "${questionAnswer.question.questionid == question.questionid}">
+										<td><c:out value="${questionAnswer.answer.answertext}"/></td>
+									</c:if>							
 								</c:forEach>
+							</tr>
 							
 					
 							
@@ -65,8 +58,9 @@
 				
 		</table>
 		
-				<form action="GenerateResultsServlet" method = "post" class = "form">
+				<form action="SaveSurveyServlet" method = "post" class = "form">
 					<input type = "submit" name = "save" value = "Save results" class="sixSBtn">
+					
 				</form>
 	</div>
 		

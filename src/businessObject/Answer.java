@@ -22,7 +22,7 @@ public class Answer implements Serializable {
 
 	//bi-directional many-to-one association to Weight
 	@ManyToOne
-	@JoinColumn(name="WEIGHTID")
+	@JoinColumn(name="WEIGHT")
 	private Weight weight;
 
 	//bi-directional many-to-one association to Questionanswer
