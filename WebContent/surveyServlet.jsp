@@ -16,12 +16,18 @@
 			<h4>Change Readiness Assessment and Organization Tool</h4>
 			
 			<ul class="menu-bar">
-				 <li class="active"><a href="index.jsp">${username}</a></li>
+				 <li ><a href="index.jsp">${username}</a></li>
 			<c:choose>
 		    	<c:when test="${Role.role =='Consultant' || Role.role == 'Admin'}">
 				 <li ><a href="createAccount.jsp">Create</a></li>
 				 </c:when>
 			</c:choose>
+			 	<c:choose>
+			    	<c:when test="${Role.role == 'Client'}">
+						<li class="active"><a href="DisplaySurvey">Surveys</a></li>
+					</c:when>
+				</c:choose>
+				<li><a href="documents.jsp">Documents</a></li>
 				 <li><a href="LogoutServlet">Log-Out</a></li>
 			</li>
 			</ul>
@@ -33,7 +39,7 @@
 
 	<h2>Change Readiness Survey</h2>
 	<p>Answer honestly for best results</p>
-	
+	<p  class="error">${errors}</p>
 	<table class="survey">	
 		<c:forEach var="category" items="${requestScope.categoryList}">		
 		

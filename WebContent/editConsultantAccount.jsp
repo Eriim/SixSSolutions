@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create Consultant Account</title>
+<title>Edit Consultant Account</title>
 </head>
 <body>
 	<header>
@@ -14,32 +14,36 @@
 			<h4>Change Readiness Assessment and Organization Tool</h4>
 		</div>	
 			<ul class="menu-bar">
-					 <li><a href="index.jsp">${username}</a></li>
+				 <li ><a href="index.jsp">${username}</a></li>
 				 	<c:choose>
 			    		<c:when test="${Role.role =='Consultant' || Role.role == 'Admin'}">
-					 	<li  class="active"><a href="createAccount.jsp">Create</a></li>
-					 	<li ><a href="AccountsServlet">Accounts</a></li>
+					 	<li ><a href="createAccount.jsp">Create</a></li>
+					 	<li class="active"><a href="AccountsServlet">Accounts</a></li>
 				 	</c:when>
 				</c:choose>
-				<li><a href="documents.jsp">Documents</a></li>
+					<li><a href="documents.jsp">Documents</a></li>
 				 <li><a href="LogoutServlet">Log-Out</a></li>
 			</li>
 			</ul>
 	
 	</header>
 	<div id="mainBody">
-	<h1 class="title">Create Consultant Account: ${name}</h1>
-	<p class="error">${error}</p>
+	<h1 class="title">Edit Consultant Account: ${name}</h1>
+		<p class="error">${error}</p>
 	
 	
-	<form class = "form" action="CreateConsultantServlet" method = "post">
+	<form class = "form" action="EditConsultantServlet" method = "post">
 		
-		
+		<input type="hidden" name = "accountid" value="${accountid}"><br>
 		<label for = "workPhone">Work Phone</label>
-		<input type="text" name = "workPhone"><br>
-		<label for = "isAdmin">Admin </label>
-		<input type="radio" name = "isAdmin" value="true">Yes<br>
-		
+		<input type="text" name = "workPhone" value="${workphone}"><br>
+	
+			<c:choose>
+			    	<c:when test="${admin == false}">
+					 	<label for = "isAdmin">Admin</label>
+						<input type="radio" name = "isAdmin" value="true">Yes<br>
+				 	</c:when>
+			</c:choose>
 		<input type = "submit" name = "submit" value = "Save Consultant" class="sixSBtn">
 	</form>
 	</div>

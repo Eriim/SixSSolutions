@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create Client Account</title>
+<title>Edit Client Account</title>
 </head>
 <body>
 	<header>
@@ -14,28 +14,28 @@
 			<h4>Change Readiness Assessment and Organization Tool</h4>
 		</div>	
 		<ul class="menu-bar">
-				 <li><a href="index.jsp">${username}</a></li>
+						 <li ><a href="index.jsp">${username}</a></li>
 				 	<c:choose>
 			    		<c:when test="${Role.role =='Consultant' || Role.role == 'Admin'}">
-					 	<li  class="active"><a href="createAccount.jsp">Create</a></li>
-					 	<li ><a href="AccountsServlet">Accounts</a></li>
+					 	<li ><a href="createAccount.jsp">Create</a></li>
+					 	<li class="active"><a href="AccountsServlet">Accounts</a></li>
 				 	</c:when>
 				</c:choose>
-				<li><a href="documents.jsp">Documents</a></li>
+					<li><a href="documents.jsp">Documents</a></li>
 				 <li><a href="LogoutServlet">Log-Out</a></li>
 		</li>
 		</ul>
 	
 	</header>
 	<div id="mainBody">
-	<h1 class="title">Create Client Account: ${name}</h1>
-		<p class="error">${error}</p>
-	<form class = "form" action="CreateClientServlet" method = "post">
+	<h1 class="title">Edit Client Account: ${name}</h1>
+	<p class="error">${error}</p>
+	<form class = "form" action="EditClientServlet" method = "post">
 		<label for = "companyName">Company Name</label>
-		<input type="text" name = "companyName" value=${companyName}><br>
+		<input type="text" name = "companyName" value="${companyName}"><br>
 		<label for = "country">Country</label>
 		<select name="country">
-			<option value="${country}">${country}</option>
+		<option value="${country}">${country}</option>
 			<option value="CAN">CAN</option>
 			<option value="USA">USA</option>			
 		</select><br>
@@ -113,12 +113,12 @@
 			</optgroup>
 		</select><br>
 		<label for = "address">Address</label>
-		<input type="text" name = "address" value="${address}">
+		<input type="text" name = "address" value ="${address}">
 		<label for = "postalZipCode">Postal Code</label>
-		<input type="text" name = "postalZipCode" value="${postalZipCode}"><br>
+		<input type="text" name = "postalZipCode" value ="${postalzipcode}"><br>
 		<label for = "shippingAddress">Shipping Address</label>
-		<input type="text" name = "shippingAddress" value="${shippingAddress}"><br>
-		<input type = "submit" name = "submit" value = "Create Client" class="sixSBtn">
+		<input type="text" name = "shippingAddress" value ="${shippingaddress}"><br>
+		<input type = "submit" name = "submit" value = "Save Client" class="sixSBtn">
 	</form>
 	</div>
 		

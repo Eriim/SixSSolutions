@@ -38,6 +38,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		Db database = new Db();
+	
 
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -110,7 +111,8 @@ public class LoginServlet extends HttpServlet {
 					
 			}
 			catch(Exception e) {
-				e.printStackTrace();
+				request.setAttribute("error", "Incorrect credentials");
+				request.getRequestDispatcher("./login.jsp").forward(request, response);
 			}
 		}
 	}

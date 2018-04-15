@@ -34,7 +34,7 @@
 		<h1 class="title">Log In</h1>
 		
 		<form action="LoginServlet" method = "post" class = "form">
-		<span id="error" style="color:red;">${error}</span>
+		<span class="error" style="color:red;">${error}</span>
 		<span> ${message}</span>
 			<label for = "username">Username:</label>
 			<input type="text" name = "username">
@@ -42,6 +42,7 @@
 			<input type="password" name = "password">
 			<input type = "submit" name = "submit" value = "Log in" class="sixSBtn">
 			<p id="forgotPass"><a href="forgotPassword.jsp">Forgot Your Password?</a></p>
+			<p id="newUser"><a href="createNewClientAccount.jsp">Don't have an account?</a></p>
 		</form>
 		
 		

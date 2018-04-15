@@ -125,6 +125,11 @@ public class CreateAccountServlet extends HttpServlet {
 				}
 			}
 			else {
+				request.setAttribute("accountUserName", userName);
+				request.setAttribute("email", email);
+				request.setAttribute("phonenumber", phone);
+				request.setAttribute("usernameEntered", firstName);
+				request.setAttribute("lastname", lastName);
 				System.out.println("Errors!");
 				request.setAttribute("error", errorMsg);
 				request.getRequestDispatcher("/createAccount.jsp").forward(request, response);

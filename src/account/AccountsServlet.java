@@ -1,4 +1,4 @@
-package survey;
+package account;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,23 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import businessObject.Client;
-import businessObject.Questionnaire;
+import businessObject.Consultant;
 import database.Db;
 
 /**
- * Servlet implementation class DisplaySurvey
+ * Servlet implementation class ClientsSurvey
  */
-@WebServlet("/DisplaySurvey")
-public class DisplaySurvey extends HttpServlet {
-	private static final long serialVersionUID = 2L;
+@WebServlet("/AccountsServlet")
+public class AccountsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DisplaySurvey() {
+    public AccountsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,8 +33,22 @@ public class DisplaySurvey extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doPost(request,response);
+		Db database = new Db();
+		try {
+			database.createConnection();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}		
+		List<Client> clients = database.getAllCLients();
+		List<Consultant> consultants = database.getAllConsultants();
+		List<Consultant> admins = database.getAllAdmins();
+		
+		
+		request.setAttribute("clients", clients);
+		request.setAttribute("consultants", consultants);	
+		request.setAttribute("admins", admins);	
+		request.getRequestDispatcher("/accounts.jsp").forward(request, response);	
 	}
 
 	/**
@@ -43,23 +56,7 @@ public class DisplaySurvey extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Db database = new Db();
-		HttpSession session = request.getSession();
-		session.removeAttribute("questionAnswerList");
-		session.removeAttribute("questionnaire");
-		try {
-			
-			database.createConnection();
-			Client client = database.getClientByUsername((String)session.getAttribute("username"));
-			List<Questionnaire> questionnaires = database.getQuestionnaireByClient(client);
-			request.setAttribute("questionnaireList", questionnaires);
-			
-			
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		request.getRequestDispatcher("/results.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }
