@@ -47,11 +47,11 @@ public class ViewSurveyServlet extends HttpServlet {
 			List<Question> questionList = database.getSurveyQuestions();	
 			List<Category> categoryList = database.getSurveyCategories();
 			
-			
+
 			request.setAttribute("questionList", questionList);	
 			request.setAttribute("categoryList", categoryList);	
 			request.setAttribute("questionAnswerList", questionAnswerList);	
-			
+			request.setAttribute("accountid", questionnaire.getClient().getAccount().getAccountid());
 		}
 		catch (Exception e) {
 			e.printStackTrace();

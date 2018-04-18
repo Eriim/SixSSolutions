@@ -57,6 +57,7 @@ public class LoadClientSurveyServlet extends HttpServlet {
 			request.setAttribute("questionnaireList", questionnaires);
 			request.setAttribute("clientTitle", client.getCompanyname());
 			
+			request.setAttribute("accountid", account.getAccountid());
 			
 		}
 		catch(Exception e) {

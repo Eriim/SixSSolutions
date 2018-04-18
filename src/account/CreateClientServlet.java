@@ -138,8 +138,16 @@ public class CreateClientServlet extends HttpServlet {
 						"Client " + account.getFirstnamecontact() + ", " + account.getLastnamecontact() + " created.");
 
 				try{
-					session.getAttribute("username");
+					String username = (String) session.getAttribute("username");
+					System.out.print(username);
+					if(username.isEmpty())
+					{
 					request.getRequestDispatcher("/login.jsp").forward(request, response);
+					}
+					else
+					{
+					 request.getRequestDispatcher("/index.jsp").forward(request, response);
+					}
 				}catch(Exception e){
 					request.getRequestDispatcher("/index.jsp").forward(request, response);
 				}
