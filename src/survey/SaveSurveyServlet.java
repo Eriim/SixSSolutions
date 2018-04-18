@@ -48,11 +48,40 @@ public class SaveSurveyServlet extends HttpServlet {
 			ArrayList<Questionanswer> qa  = (ArrayList<Questionanswer>)session.getAttribute("questionAnswerList");
 			Questionnaire questionnaire = (Questionnaire)session.getAttribute("questionnaire");
 			int score = 0;
+			int category1 = 0;
+			int category2 = 0;
+			int category3 = 0;
+			int category4 = 0;
+			int category5 = 0;
 			for (Questionanswer q : qa) {
 				int weight = Integer.parseInt(q.getAnswer().getWeight().getWeight());
 				score = score + weight;
+				switch(q.getQuestion().getCategory().getCategoryid()) {
+				case 1:
+					category1 = category1 + weight;
+					break;
+				case 2:
+					category2 = category2 + weight;
+					break;
+				case 3:
+					category3 = category3 + weight;
+					break;
+				case 4:
+					category4 = category4 + weight;
+					break;
+				case 5:
+					category5 = category5 + weight;
+					break;				
+					
+				}
+			
 			}
 			questionnaire.setScore(score);
+			questionnaire.setCategory1(category1);
+			questionnaire.setCategory2(category2);
+			questionnaire.setCategory3(category3);
+			questionnaire.setCategory4(category4);
+			questionnaire.setCategory5(category5);
 			
 			database.createConnection();
 			questionnaire = database.persistQuestionnaire(questionnaire);

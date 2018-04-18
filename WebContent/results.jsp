@@ -52,17 +52,34 @@
 		<th>Questionnaire ID</th>
 		<th>Date Completed</th>
 		<th>Score </th>
+		<th>Category 1: </th>
+		<th>2</th>
+		<th>3</th>
+		<th>4</th>
+		<th>5</th>
+		
 		<c:forEach var="questionnaire" items="${requestScope.questionnaireList}">
 		<tr>
 			<td><c:out value="${questionnaire.questionnaireid}"/></td>
 			<td><c:out value="${questionnaire.datecompleted}"/></td>
 			<td><c:out value="${questionnaire.score}"/></td>
+			<td><c:out value="${questionnaire.category1}"/></td>
+			<td><c:out value="${questionnaire.category2}"/></td>
+			<td><c:out value="${questionnaire.category3}"/></td>
+			<td><c:out value="${questionnaire.category4}"/></td>
+			<td><c:out value="${questionnaire.category5}"/></td>
 			<td><a href="ViewSurveyServlet?questionnaireid=<c:out value="${questionnaire.questionnaireid}"/>" >View Survey</a>
 		</tr>	
 					
 		</c:forEach>
-				
+			
 		</table>
+		
+		<p>Category 1: 	Prepare : Project Benefits and Key Messages </p>
+		<p>Category 2: 	Plan : Managers, Employees and Change Agents </p>
+		<p>Category 3: 	Design : Training and WIIFM(What's in it for me?) </p>
+		<p>Category 4: 	Validate : Testing and External Audiences </p>
+		<p>Category 5: 	Deploy : Countdown, Congrats, Supprt, R and R</p>
 		
 		<c:choose>
 			<c:when test="${Role.role == 'client'}" >
