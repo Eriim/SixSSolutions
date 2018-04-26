@@ -92,7 +92,9 @@ public class CreateAccountServlet extends HttpServlet {
 				error = true;
 				errorMsg += "Please enter a last name!<br/>";
 			}
-			
+				HttpSession session = request.getSession();
+			 String usernameSession = "";
+			 usernameSession = (String) session.getAttribute("username");
 			if(!error) {
 				
 				account.setUsername(userName);
@@ -102,7 +104,7 @@ public class CreateAccountServlet extends HttpServlet {
 				account.setLastnamecontact(lastName);
 					
 	
-				HttpSession session = request.getSession();
+				
 				database.createConnection();
 				
 				Hasher hasher = new Hasher();
@@ -116,9 +118,20 @@ public class CreateAccountServlet extends HttpServlet {
 				request.setAttribute("name", tempAccount.getFirstnamecontact() + ", " + account.getLastnamecontact());
 				System.out.println(account.getAccountid());
 				
-	
+			
+			
 				if(accountType.equals("Client")) {
-					request.getRequestDispatcher("/createClientAccount.jsp").forward(request, response);
+					try {
+						if(usernameSession.equals(null))
+						{
+							request.getRequestDispatcher("/createNewClientAccount.jsp").forward(request, response);
+						}
+						request.getRequestDispatcher("/createClientAccount.jsp").forward(request, response);
+					}catch(Exception e)
+					{
+						request.getRequestDispatcher("/createNewClientAccount.jsp").forward(request, response);
+					}
+					
 				}
 				if(accountType.equals("Consultant")) {
 					request.getRequestDispatcher("/createConsultantAccount.jsp").forward(request, response);
@@ -128,12 +141,22 @@ public class CreateAccountServlet extends HttpServlet {
 				request.setAttribute("accountUserName", userName);
 				request.setAttribute("email", email);
 				request.setAttribute("phonenumber", phone);
-				request.setAttribute("usernameEntered", firstName);
+				request.setAttribute("firstname", firstName);
 				request.setAttribute("lastname", lastName);
 				System.out.println("Errors!");
 				request.setAttribute("error", errorMsg);
-				request.getRequestDispatcher("/createAccount.jsp").forward(request, response);
-
+				
+				try {
+					if(usernameSession.equals(null))
+					{
+						request.getRequestDispatcher("/createNewAccount.jsp").forward(request, response);
+					}
+					request.getRequestDispatcher("/createAccount.jsp").forward(request, response);
+				}catch(Exception e)
+				{
+					request.getRequestDispatcher("/createNewAccount.jsp").forward(request, response);
+				}
+		
 				
 				
 			}

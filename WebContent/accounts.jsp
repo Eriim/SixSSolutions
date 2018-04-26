@@ -132,8 +132,12 @@
 	    					<td>${consultant.account.email}</td>
 	    					<td>${consultant.account.phonenumber}</td>
 	    					<td>${consultant.workphone}</td>
-	    					<td><a href="DeleteServlet?accountID=<c:out value="${consultant.account.accountid}"></c:out>" class="callAlert">
-	    					Delete Account</a></td>
+	    					<c:choose>		
+			   					 <c:when test="${consultant.account.accountid != 1}">
+			    					<td><a href="DeleteServlet?accountID=<c:out value="${consultant.account.accountid}"></c:out>" class="callAlert">
+			    					Delete Account</a></td>
+		    					</c:when>
+	    					</c:choose>
 	    					<td><a href="EditAccountServlet?accountID=<c:out value="${consultant.account.accountid}"></c:out>">
 	    					Edit Account</a></td>
 	    				</tr>
@@ -163,8 +167,12 @@
 	    					<td>${admin.account.email}</td>
 	    					<td>${admin.account.phonenumber}</td>
 	    					<td>${admin.workphone}</td>
-	    					<td><a href="DeleteServlet?accountID=<c:out value="${admin.account.accountid}"></c:out>"  class="callAlert">
-	    					Delete Account</a></td>
+	    				<c:choose>		
+		   					 <c:when test="${admin.account.accountid != 1}">
+		    					<td><a href="DeleteServlet?accountID=<c:out value="${admin.account.accountid}"></c:out>"  class="callAlert">
+		    					Delete Account</a></td>
+	    					</c:when>
+	    				</c:choose>
 	    					<td><a href="EditAccountServlet?accountID=<c:out value="${admin.account.accountid}"></c:out>" >
 	    					Edit Account</a></td>
 	    				</tr>

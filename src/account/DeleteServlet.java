@@ -33,6 +33,15 @@ public class DeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	
 		String accountID = request.getParameter("accountID");
 		System.out.println("ACCOUNT ID:" + accountID);
 		Db database = new Db();
@@ -43,7 +52,16 @@ public class DeleteServlet extends HttpServlet {
 			e.printStackTrace();
 		}	
 		
+		Boolean error = false;
+		
+		try {
 		database.deleteAccount(accountID);
+		}catch(Exception e)
+		{
+			error =true;
+			e.printStackTrace();
+			database.closeConnection();
+		}
 		
 		List<Client> clients = database.getAllCLients();
 		List<Consultant> consultants = database.getAllConsultants();
@@ -53,17 +71,16 @@ public class DeleteServlet extends HttpServlet {
 		request.setAttribute("clients", clients);
 		request.setAttribute("consultants", consultants);	
 		request.setAttribute("admins", admins);	
-		
-		request.setAttribute("message", "Account Deleted!");
-		request.getRequestDispatcher("./accounts.jsp").forward(request, response);
-	}
+		if(error)
+		{
+			request.setAttribute("message", "Something went wrong. Account Not Deleted!");
+		}
+		else
+		{
+			request.setAttribute("message", "Account Deleted!");
+		}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.getRequestDispatcher("./accounts.jsp").forward(request, response);
 	}
 
 }

@@ -42,12 +42,12 @@ public class ViewSurveyServlet extends HttpServlet {
 			database.createConnection();
 			int questionnaireid = Integer.parseInt(request.getParameter("questionnaireid"));
 			Questionnaire questionnaire = database.getQuestionnaireById(questionnaireid);
-			request.setAttribute("questionnaire", questionnaire);
+			
 			List<Questionanswer> questionAnswerList = questionnaire.getQuestionanswers();
 			List<Question> questionList = database.getSurveyQuestions();	
 			List<Category> categoryList = database.getSurveyCategories();
 			
-
+			request.setAttribute("questionnaire", questionnaire);
 			request.setAttribute("questionList", questionList);	
 			request.setAttribute("categoryList", categoryList);	
 			request.setAttribute("questionAnswerList", questionAnswerList);	

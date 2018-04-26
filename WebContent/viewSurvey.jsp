@@ -46,7 +46,7 @@
 		<table>	
 		<c:forEach var="category" items="${requestScope.categoryList}">		
 			<th><c:out value="${category.categorytext}"/></th>
-			<th></th>
+			
 					<c:forEach items="${questionList}" var="question">
 						<c:if test = "${question.category.categoryid == category.categoryid}">
 							<tr>	

@@ -1,7 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 
 <html>
 <head>
@@ -10,28 +10,15 @@
 <title>Create Account</title>
 </head>
 <body>
+	
 	<div class="mainHeader">
 		<p><img class="headerIcon" src="images/phone-icon.png" alt="headerIcon" height="12px" width="12px" style="float: left;" />+1.866.579.7497</p> 
 		<p><img class="headerIcon" src="images/fax.png" alt="headerIcon" height="12px" width="12px" style="float: left;" />+1.888.240.4866</p>
 		<p><img class="headerIcon" src="images/mail.png" alt="headerIcon" height="12px" width="12px" style="float: left;" /><a href="mailto:info@sixspartners.com" style="color:white;">info@sixspartners.com</a></p>
 	</div>
-
 	
-	
-	<header>	 
-			 <ul class="menu-bar">
-				 <li><a href="index.jsp">${username}</a></li>
-				 <img class="mainLogo" src="images/SixSLogo.png" alt="PageLogo" style="float: left; margin-left: 5px;">
-				 	<c:choose>
-			    		<c:when test="${Role.role =='Consultant' || Role.role == 'Admin'}">
-					 	<li  class="active"><a href="createAccount.jsp">Create</a></li>
-					 	<li ><a href="AccountsServlet">Accounts</a></li>
-				 	</c:when>
-				</c:choose>
-				<li><a href="documents.jsp">Documents</a></li>
-				 <li><a href="LogoutServlet">Log-Out</a></li>
-			</li>
-			</ul>
+	<header>
+		<img class="mainLogo" src="images/SixSLogo.png" alt="PageLogo" style="float: left; margin-left: 5px;">
 	</header>
 	
 	<div class="postHeader">
@@ -44,32 +31,25 @@
 	<form class = "form" action="CreateAccountServlet" method = "post">
 	
 		<label for = "username">Username</label>
-		<input class="inputAccount" type="text" name = "username" value="${accountUserName}"><br>
+		<input type="text" name = "username" value="${accountUserName}"><br>
 		<label for = "password">Password</label>
-		<input class="inputAccount" type="password" name = "password" ><br>
+		<input type="password" name = "password" ><br>
 		<label for = "confirmation">Confirm Password</label>
-		<input class="inputAccount" type="password" name = "confirmation"><br>
+		<input type="password" name = "confirmation"><br>
 		<label for = "email" value="${email}">Email</label>
-		<input class="inputAccount" type="text" name = "email"><br>
+		<input type="text" name = "email"><br>
 		<label for = "phone" >Phone Number</label>
-		<input class="inputAccount" type="text" name = "phone" value="${phonenumber}">
+		<input type="text" name = "phone" value="${phonenumber}">
 		<label for = "firstN">First Name</label>
-		<input class="inputAccount" type="text" name = "firstN" value="${firstname}"><br>
+		<input type="text" name = "firstN" value="${firstname}"><br>
 		<label for = "lastN">Last Name</label>
-		<input class="inputAccount"type="text" name = "lastN" value="${lastname}"><br>
-		<div>
-		<input type="radio" name="accountType" value="Client">Client</div>
-		<c:choose>
-		 	<c:when test="${Role.role =='Admin'}">
-		 	<div>
-				<input type="radio" name="accountType" value="Consultant">Consultant</div>
-		 	</c:when>
-		 </c:choose>
+		<input type="text" name = "lastN" value="${lastname}"><br>
+		<input type="hidden" name="accountType" value="Client">
+		
 		<input type = "submit" name = "submit" value = "Add Account" class="sixSBtn">
 	</form>
 	</div>
-	
-	<footer>
+		
 	<div class="preFooterContainer">
 		<ul class="preFooter">
 		   	 <li><a href="https://sixspartners.com/who-are-we/">Who Are We?</a></li>
@@ -81,6 +61,8 @@
 			 <li><a href="https://sixspartners.com/events/">Events</a></li>
 		</ul>
 	</div>
+	
+	<footer>
 	<div class="container">
 		<div>
 			<span style="float: left; width:20%">
@@ -134,9 +116,9 @@
 			<p><b>Website:<a href="https://sixspartners.com/" style="color:white;"> www.sixspartners.com</a></b></p>
 		</div>
 	</div>
+	</footer>
 	<div class="postFooter">
 		<p><b>Copyright Six S. Parnters - All Rights Reserved</b><p>
 	</div>
-	</footer>
 </body>
 </html>

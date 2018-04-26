@@ -31,6 +31,8 @@ public class Account implements Serializable {
 	private String salt;
 
 	private String username;
+	
+	private Boolean isHidden;
 
 	//bi-directional many-to-one association to Client
 	@OneToMany(mappedBy="account")
@@ -149,6 +151,14 @@ public class Account implements Serializable {
 		consultant.setAccount(null);
 
 		return consultant;
+	}
+
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
+
+	public void setIsHidden(Boolean isHidden) {
+		this.isHidden = isHidden;
 	}
 
 }

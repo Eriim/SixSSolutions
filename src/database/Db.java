@@ -72,7 +72,7 @@ public class Db {
 		Account tempAccount = new Account();
 		
 
-			String tempJPLSelectQuery = "SELECT a FROM Account a WHERE a.username = :username";
+			String tempJPLSelectQuery = "SELECT a FROM Account a WHERE a.username = :username AND a.isHidden = false";
 			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("username", username);
 
 			tempAccounts = tempQuery.getResultList();
@@ -124,6 +124,7 @@ public class Db {
 	}
 
 	public void persistAccount(Account account) {
+		account.setIsHidden(false);
 		tempEntityManager.persist(account);
 		tempEntityManager.getTransaction().commit();
 
@@ -134,7 +135,7 @@ public class Db {
 		Account tempAccount = new Account();
 		try {
 
-			String tempJPLSelectQuery = "SELECT a FROM Account a WHERE a.accountid = :id";
+			String tempJPLSelectQuery = "SELECT a FROM Account a WHERE a.accountid = :id AND a.isHidden = false";
 			System.out.println(id);
 			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("id", id);
 
@@ -155,7 +156,7 @@ public class Db {
 		Client tempClient = new Client();
 		try {
 
-			String tempJPLSelectQuery = "SELECT a FROM Client a WHERE a.account.username = :username";
+			String tempJPLSelectQuery = "SELECT a FROM Client a WHERE a.account.username = :username AND a.account.isHidden = false";
 			System.out.println(username);
 			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("username", username);
 
@@ -280,71 +281,16 @@ public class Db {
 
 
 	public void deleteAccount(String accountID) {
-	
 		Account account = tempEntityManager.find(Account.class, Integer.parseInt(accountID));
-		Consultant consultant = null;
-		Client client = null;
-		List<Questionnaire> questionnaires = new ArrayList<>();
-		List<Questionanswer> questionAnswers = new ArrayList<>();
-		
-		System.out.println("ACCOUNT ID in DB: " + account.getAccountid());
+		account.setIsHidden(true);
+		tempEntityManager.persist(account);
+		tempEntityManager.getTransaction().commit();
+		System.out.println("ACCOUNT ID in DB DELETED: " + account.getAccountid());
 
-		Boolean isConsultant = false;
-		if (account.getClients().isEmpty()) {
-			isConsultant = true;
-			// consultant account
-			String tempJPLSelectQuery = "SELECT c FROM Consultant c WHERE c.consultantid = :id";
-			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("id",
-					account.getConsultants().get(0).getConsultantid());
-			consultant = (Consultant) tempQuery.getResultList().get(0);
 
-		} else {
-			// client account
-			String tempJPLSelectQuery = "SELECT c FROM Client c WHERE c.clientid = :id";
-			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery).setParameter("id",
-					account.getClients().get(0).getClientid());
-			client = (Client) tempQuery.getResultList().get(0);
-			System.out.println("Get client");
-			
-			String tempJPLSelectQueryQA = "SELECT qa FROM Questionanswer qa WHERE qa.questionnaire.client.clientid = :id";
-			Query tempQueryQA = tempEntityManager.createQuery(tempJPLSelectQueryQA).setParameter("id",
-					account.getClients().get(0).getClientid());
-			questionAnswers = tempQueryQA.getResultList();
-			System.out.println(questionnaires.size());
-			System.out.println("Get questionanswers");
-			
-			String tempJPLSelectQueryQ = "SELECT q FROM Questionnaire q WHERE q.client.clientid = :id";
-			Query tempQueryQ = tempEntityManager.createQuery(tempJPLSelectQueryQ).setParameter("id",
-					account.getClients().get(0).getClientid());
-			questionnaires = tempQueryQ.getResultList();
-			System.out.println("Get questionniares");
-
-			for(Questionanswer qa : questionAnswers) {
-				tempEntityManager.remove(qa);
-				System.out.println("Delete questionanswers id:" + qa.getQuestionanswerid());
-				
-			}
-			
-			for(Questionnaire q : questionnaires) {
-				tempEntityManager.remove(q);
-				System.out.println("Delete qestionnaire id:" + q.getQuestionnaireid());
-				
-			}
-
-		}
 		
 	
 	
-		if (isConsultant) {
-			tempEntityManager.remove(consultant);
-
-		} else {
-
-			tempEntityManager.remove(client);
-		}
-		tempEntityManager.remove(account);
-	
-
 	}
 
 	public void updateAccount(Account account) {
@@ -375,7 +321,7 @@ public class Db {
 		List<Consultant> allConsultants = new ArrayList<Consultant>();
 
 		try {
-			String tempJPLSelectQuery = "SELECT c FROM Consultant c";
+			String tempJPLSelectQuery = "SELECT c FROM Consultant c  WHERE c.account.isHidden = false";
 			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery);
 			allConsultants = tempQuery.getResultList();
 
@@ -390,7 +336,7 @@ public class Db {
 		List<Consultant> allAdmins = new ArrayList<Consultant>();
 
 		try {
-			String tempJPLSelectQuery = "SELECT c FROM Consultant c WHERE isAdmin = true";
+			String tempJPLSelectQuery = "SELECT c FROM Consultant c WHERE isAdmin = true AND c.account.isHidden = false";
 			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery);
 			allAdmins = tempQuery.getResultList();
 
@@ -405,7 +351,7 @@ public class Db {
 		List<Client> allClients = new ArrayList<Client>();
 
 		try {
-			String tempJPLSelectQuery = "SELECT c FROM Client c";
+			String tempJPLSelectQuery = "SELECT c FROM Client c WHERE c.account.isHidden = false";
 			Query tempQuery = tempEntityManager.createQuery(tempJPLSelectQuery);
 			allClients = tempQuery.getResultList();
 

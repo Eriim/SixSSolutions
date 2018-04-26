@@ -102,7 +102,10 @@ public class CreateClientServlet extends HttpServlet {
 				error = true;
 				errorMsg += "Please enter a proper shipping address. <br/>";
 			}
+			
 
+			String usernameSession = "";
+		 	usernameSession = (String) session.getAttribute("username");
 			if (error) {
 				request.setAttribute("error", errorMsg);
 				request.setAttribute("companyName", companyName);
@@ -112,8 +115,16 @@ public class CreateClientServlet extends HttpServlet {
 				request.setAttribute("postalZipCode", postalZipCode);
 				request.setAttribute("shippingAddress", shippingAddress);
 				request.setAttribute("provinceState", provinceState);
-
-				request.getRequestDispatcher("/createClientAccount.jsp").forward(request, response);
+				
+				if(usernameSession.equals(null))
+				{
+				request.getRequestDispatcher("/createNewClientAccount.jsp").forward(request, response);
+				}
+				else
+				{
+					request.getRequestDispatcher("/createClientAccount.jsp").forward(request, response);
+				}
+				
 			} else {
 
 				System.out.println("Account ID:" + accountID);
@@ -149,7 +160,7 @@ public class CreateClientServlet extends HttpServlet {
 					 request.getRequestDispatcher("/index.jsp").forward(request, response);
 					}
 				}catch(Exception e){
-					request.getRequestDispatcher("/index.jsp").forward(request, response);
+					request.getRequestDispatcher("/login.jsp").forward(request, response);
 				}
 
 			}

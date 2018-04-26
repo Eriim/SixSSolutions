@@ -48,34 +48,56 @@ public class SaveSurveyServlet extends HttpServlet {
 			ArrayList<Questionanswer> qa  = (ArrayList<Questionanswer>)session.getAttribute("questionAnswerList");
 			Questionnaire questionnaire = (Questionnaire)session.getAttribute("questionnaire");
 			int score = 0;
+			
 			int category1 = 0;
+			int total1 = 21;
+			
 			int category2 = 0;
+			int total2 = 24;
+			
 			int category3 = 0;
+			int total3 = 18;
+			
 			int category4 = 0;
+			int total4 = 18;
+			
 			int category5 = 0;
+			int total5 = 21;
+			
 			for (Questionanswer q : qa) {
 				int weight = Integer.parseInt(q.getAnswer().getWeight().getWeight());
 				score = score + weight;
 				switch(q.getQuestion().getCategory().getCategoryid()) {
 				case 1:
-					category1 = category1 + weight;
+					category1 = category1 + weight;		
+					System.out.println(category1);
 					break;
 				case 2:
 					category2 = category2 + weight;
+					System.out.println(category2);
 					break;
 				case 3:
-					category3 = category3 + weight;
+					category3 = category3 + weight;	
+					System.out.println(category3);
 					break;
 				case 4:
-					category4 = category4 + weight;
+					category4 = category4 + weight;	
+					System.out.println(category4);
 					break;
 				case 5:
-					category5 = category5 + weight;
+					category5 = category5 + weight;	
+					System.out.println(category5);
 					break;				
 					
 				}
 			
 			}
+			category1 = (category1 / total1)*100;
+			category2 = (category2 / total2)*100;
+			category3 = (category3 / total3)*100;
+			category4 = (category4 / total4)*100;
+			category5 = (category5 / total5)*100;
+			
 			questionnaire.setScore(score);
 			questionnaire.setCategory1(category1);
 			questionnaire.setCategory2(category2);

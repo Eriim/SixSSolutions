@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,8 +22,12 @@
 		<p><img class="headerIcon" src="images/phone-icon.png" alt="headerIcon" height="12px" width="12px" style="float: left;" />+1.866.579.7497</p> 
 		<p><img class="headerIcon" src="images/fax.png" alt="headerIcon" height="12px" width="12px" style="float: left;" />+1.888.240.4866</p>
 		<p><img class="headerIcon" src="images/mail.png" alt="headerIcon" height="12px" width="12px" style="float: left;" /><a href="mailto:info@sixspartners.com" style="color:white;">info@sixspartners.com</a></p>
-		<p>Change Readiness Assessment and Organizational Tool</p>
 	</div>
+
+	<header>	 
+				 <img class="mainLogo" src="images/SixSLogo.png" alt="PageLogo" style="float: left; margin-left: 5px;">
+	
+	</header>
 
 
 	<div class="mainBody">
@@ -37,7 +41,7 @@
 			<input class="login" type="password" name = "password">
 			<input type="submit" name = "submit" value = "Log in" class="sixSBtn">
 			<p id="forgotPass" class="forgotPass"><a href="forgotPassword.jsp">Forgot Your Password?</a></p>
-			<p id="newUser" class="forgotPassd"><a href="createNewClientAccount.jsp">Don't have an account?</a></p>
+			<p id="newUser" class="forgotPassd"><a href="createNewAccount.jsp">Don't have an account?</a></p>
 		</form>
 	</div>
 	
