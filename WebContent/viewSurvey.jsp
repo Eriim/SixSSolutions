@@ -43,9 +43,33 @@
 	
 	
 	<div class="mainBody">
+	
+	<h2>Date Completed :<c:out value=" ${questionnaire.datecompleted}"></c:out> </h2>
+	<h3>Score: <c:out value = "${questionnaire.score}"></c:out></h3>
 		<table>	
 		<c:forEach var="category" items="${requestScope.categoryList}">		
 			<th><c:out value="${category.categorytext}"/></th>
+			<th>
+			<c:if test="${category.categoryid == 1 }">
+			<c:out value="${questionnaire.category1}"/>
+			</c:if>
+			<c:if test="${category.categoryid == 2 }">
+			<c:out value="${questionnaire.category2}"/>
+			</c:if>
+			<c:if test="${category.categoryid == 3 }">
+			<c:out value="${questionnaire.category3}"/>
+			</c:if>
+			<c:if test="${category.categoryid == 4}">
+			<c:out value="${questionnaire.category4}"/>
+			</c:if>
+			<c:if test="${category.categoryid == 5 }">
+			<c:out value="${questionnaire.category5}"/>
+			</c:if>
+			
+			
+			
+			
+			</th>
 			
 					<c:forEach items="${questionList}" var="question">
 						<c:if test = "${question.category.categoryid == category.categoryid}">

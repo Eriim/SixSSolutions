@@ -47,25 +47,25 @@ public class SaveSurveyServlet extends HttpServlet {
 		try {
 			ArrayList<Questionanswer> qa  = (ArrayList<Questionanswer>)session.getAttribute("questionAnswerList");
 			Questionnaire questionnaire = (Questionnaire)session.getAttribute("questionnaire");
-			int score = 0;
+			double score = 0;
 			
-			int category1 = 0;
-			int total1 = 21;
+			double category1 = 0;
+			double total1 = 21;
 			
-			int category2 = 0;
-			int total2 = 24;
+			double category2 = 0;
+			double total2 = 24;
 			
-			int category3 = 0;
-			int total3 = 18;
+			double category3 = 0;
+			double total3 = 18;
 			
-			int category4 = 0;
-			int total4 = 18;
+			double category4 = 0;
+			double total4 = 18;
 			
-			int category5 = 0;
-			int total5 = 21;
+			double category5 = 0;
+			double total5 = 21;
 			
 			for (Questionanswer q : qa) {
-				int weight = Integer.parseInt(q.getAnswer().getWeight().getWeight());
+				double weight = Double.parseDouble(q.getAnswer().getWeight().getWeight());
 				score = score + weight;
 				switch(q.getQuestion().getCategory().getCategoryid()) {
 				case 1:
@@ -97,13 +97,13 @@ public class SaveSurveyServlet extends HttpServlet {
 			category3 = (category3 / total3)*100;
 			category4 = (category4 / total4)*100;
 			category5 = (category5 / total5)*100;
-			
-			questionnaire.setScore(score);
-			questionnaire.setCategory1(category1);
-			questionnaire.setCategory2(category2);
-			questionnaire.setCategory3(category3);
-			questionnaire.setCategory4(category4);
-			questionnaire.setCategory5(category5);
+			score = score / (total1 + total2+ total3+ total4+ total5);			
+			questionnaire.setScore((int)score);
+			questionnaire.setCategory1((int)category1);
+			questionnaire.setCategory2((int)category2);
+			questionnaire.setCategory3((int)category3);
+			questionnaire.setCategory4((int)category4);
+			questionnaire.setCategory5((int)category5);
 			
 			database.createConnection();
 			questionnaire = database.persistQuestionnaire(questionnaire);

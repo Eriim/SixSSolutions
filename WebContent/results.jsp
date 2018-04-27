@@ -59,6 +59,12 @@
 			<td><c:out value="${questionnaire.questionnaireid}"/></td>
 			<td><c:out value="${questionnaire.datecompleted}"/></td>
 			<td><c:out value="${questionnaire.score}"/></td>
+			<td><c:out value="${questionnaire.category1}"/></td>
+			<td><c:out value="${questionnaire.category2}"/></td>
+			<td><c:out value="${questionnaire.category3}"/></td>
+			<td><c:out value="${questionnaire.category4}"/></td>
+			<td><c:out value="${questionnaire.category5}"/></td>
+			
 			
 			<td><a href="ViewSurveyServlet?questionnaireid=<c:out value="${questionnaire.questionnaireid}"/>" >View Survey</a>
 		</tr>	
